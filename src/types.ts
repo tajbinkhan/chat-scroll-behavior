@@ -32,6 +32,7 @@ export type ChatScrollOptions<TMessage> = {
 
 export type ChatScrollController = {
   check(): void;
+  reset(): void;
   scrollToTop(options?: ScrollIntoViewOptions): void;
   scrollToBottom(options?: ScrollIntoViewOptions): void;
   update(options: Partial<ChatScrollOptions<any>>): void;

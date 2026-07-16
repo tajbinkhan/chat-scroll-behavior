@@ -195,6 +195,35 @@ describe("createChatScrollController", () => {
     controller.destroy();
   });
 
+  it("reset rearms edges so a near-edge check can load again", async () => {
+    const load = deferred<Message[]>();
+    const onLoadTop = vi.fn(() => load.promise);
+    const { container } = createContainer({
+      scrollTop: 10,
+      scrollHeight: 1000,
+      clientHeight: 200
+    });
+
+    const controller = createChatScrollController<Message>({
+      container,
+      getMessageId: (message) => message.id,
+      onLoadTop
+    });
+
+    controller.check();
+    expect(onLoadTop).toHaveBeenCalledTimes(1);
+
+    load.resolve([]);
+    await waitForNextFrame();
+    controller.check();
+    expect(onLoadTop).toHaveBeenCalledTimes(1);
+
+    controller.reset();
+    controller.check();
+    expect(onLoadTop).toHaveBeenCalledTimes(2);
+    controller.destroy();
+  });
+
   it("respects disabled state and has-more flags", () => {
     const onLoadTop = vi.fn(() => []);
     const { container } = createContainer({

@@ -17,6 +17,7 @@ export type UseChatScrollReturn = ChatScrollState & {
   scrollToTop(options?: ScrollIntoViewOptions): void;
   scrollToBottom(options?: ScrollIntoViewOptions): void;
   check(): void;
+  reset(): void;
 };
 
 export function useChatScroll<TMessage>(
@@ -101,10 +102,15 @@ export function useChatScroll<TMessage>(
     controllerRef.current?.check();
   }, []);
 
+  const reset = useCallback(() => {
+    controllerRef.current?.reset();
+  }, []);
+
   return {
     ...state,
     scrollToTop,
     scrollToBottom,
-    check
+    check,
+    reset
   };
 }

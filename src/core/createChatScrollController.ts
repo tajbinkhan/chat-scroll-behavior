@@ -222,8 +222,18 @@ export function createChatScrollController<TMessage>(
 		container.scrollTop = getScrollTopForBottom(getScrollMetrics(container));
 	}
 
+	function reset(): void {
+		if (destroyed) {
+			return;
+		}
+
+		topArmed = true;
+		bottomArmed = true;
+	}
+
 	return {
 		check: runCheck,
+		reset,
 		scrollToTop(scrollOptions?: ScrollIntoViewOptions) {
 			if (destroyed) {
 				return;

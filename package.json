@@ -1,6 +1,6 @@
 {
 	"name": "chat-scroll-behavior",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Framework-agnostic chat scroll behavior for loading older and newer messages.",
 	"repository": {
 		"type": "git",
